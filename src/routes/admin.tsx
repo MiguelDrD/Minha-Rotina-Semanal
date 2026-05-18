@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FormEvent, useEffect, useState } from "react";
-import { useRoutine, newId, resetRoutine, defaultRoutine, type Routine } from "@/lib/routine-store";
+import { useRoutine, newId, defaultRoutine, type Routine } from "@/lib/routine-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 function Admin() {
-  const [routine, setRoutine] = useRoutine();
+  const [routine, setRoutine, isLoading] = useRoutine();
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState("");
@@ -99,7 +99,10 @@ function Admin() {
         >
           <div>
             <h1 className="text-2xl md:text-3xl font-bold">⚙️ Editor da Rotina</h1>
-            <p className="text-white/80 text-sm">Altere horários, tarefas e períodos.</p>
+            <p className="text-white/80 text-sm">
+              Altere horários, tarefas e períodos.
+              {isLoading && <span className="ml-2 opacity-60">(Salvando/Carregando na nuvem...)</span>}
+            </p>
           </div>
           <div className="flex gap-2">
             <Link to="/" className="px-4 py-2 rounded-lg bg-white/15 hover:bg-white/25 text-white text-sm font-medium">← Ver rotina</Link>

@@ -72,42 +72,42 @@ export const defaultRoutine: Routine = {
   ],
 };
 
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getRoutineFn, saveRoutineFn } from "../server/db";
+
 export function loadRoutine(): Routine {
-  if (typeof window === "undefined") return defaultRoutine;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaultRoutine;
-    return JSON.parse(raw) as Routine;
-  } catch {
-    return defaultRoutine;
-  }
+  // Fallback para o default antes do banco carregar
+  return defaultRoutine;
 }
 
-export function saveRoutine(r: Routine) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(r));
-  window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
-}
+export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
+  const queryClient = useQueryClient();
 
-export function resetRoutine() {
-  localStorage.removeItem(STORAGE_KEY);
-  window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
-}
+  const { data: routine = defaultRoutine, isLoading } = useQuery({
+    queryKey: ["routine"],
+    queryFn: () => getRoutineFn(),
+  });
 
-export function useRoutine(): [Routine, (r: Routine) => void] {
-  const [routine, setRoutine] = useState<Routine>(defaultRoutine);
-  useEffect(() => {
-    setRoutine(loadRoutine());
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEY || e.key === null) setRoutine(loadRoutine());
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
+  const mutation = useMutation({
+    mutationFn: async (newRoutine: Routine) => {
+      // Otimista: atualiza a tela instantaneamente
+      queryClient.setQueryData(["routine"], newRoutine);
+      await saveRoutineFn(newRoutine);
+    },
+    onError: (err, newRoutine, context) => {
+      // Reverter se der erro (opcional, pode só mostrar um toast)
+      console.error("Falha ao salvar rotina", err);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["routine"] });
+    },
+  });
+
   const update = (r: Routine) => {
-    setRoutine(r);
-    saveRoutine(r);
+    mutation.mutate(r);
   };
-  return [routine, update];
+
+  return [routine, update, isLoading];
 }
 
 export const newId = id;

@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [routine] = useRoutine();
+  const [routine, , isLoading] = useRoutine();
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-6xl mx-auto">
@@ -25,7 +25,10 @@ function Index() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
             ⚡ {routine.title} 🔱
           </h1>
-          <p className="mt-2 text-white/90">{routine.subtitle}</p>
+          <p className="mt-2 text-white/90">
+            {routine.subtitle}
+            {isLoading && <span className="ml-2 text-xs opacity-50">(Carregando nuvem...)</span>}
+          </p>
         </header>
 
         <div className="overflow-x-auto rounded-2xl shadow-md bg-card">
