@@ -222,18 +222,58 @@ function Admin() {
                         </td>
                       ))}
                       <td className="p-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() =>
-                            update((r) => {
-                              r.periods[pi].rows.splice(ri, 1);
-                              return r;
-                            })
-                          }
-                        >
-                          ✕
-                        </Button>
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7"
+                            disabled={ri === 0}
+                            title="Mover para cima"
+                            onClick={() =>
+                              update((r) => {
+                                const rows = r.periods[pi].rows;
+                                const temp = rows[ri];
+                                rows[ri] = rows[ri - 1];
+                                rows[ri - 1] = temp;
+                                return r;
+                              })
+                            }
+                          >
+                            ↑
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7"
+                            disabled={ri === period.rows.length - 1}
+                            title="Mover para baixo"
+                            onClick={() =>
+                              update((r) => {
+                                const rows = r.periods[pi].rows;
+                                const temp = rows[ri];
+                                rows[ri] = rows[ri + 1];
+                                rows[ri + 1] = temp;
+                                return r;
+                              })
+                            }
+                          >
+                            ↓
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10"
+                            title="Remover horário"
+                            onClick={() =>
+                              update((r) => {
+                                r.periods[pi].rows.splice(ri, 1);
+                                return r;
+                              })
+                            }
+                          >
+                            ✕
+                          </Button>
+                        </div>
                       </td>
                     </tr>
                   ))}
