@@ -1,0 +1,15 @@
+{
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist/client",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "edge"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.js"
+    }
+  ]
+}
