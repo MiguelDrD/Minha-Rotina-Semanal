@@ -21,14 +21,15 @@ export const getRoutineFn = createServerFn({ method: "GET" }).handler(async () =
   }
 });
 
-export const saveRoutineFn = createServerFn({ method: "POST" }).handler(
-  async (ctx: { data: Routine }) => {
+export const saveRoutineFn = createServerFn({ method: "POST", strict: false }, { method: "POST", inputValidator: false }).handler(
+  async (ctx) => {
     if (!process.env.UPSTASH_REDIS_REST_URL) {
       console.warn("UPSTASH_REDIS_REST_URL is missing. Skipping save.");
       return;
     }
     try {
-      await redis.set("rotina_semanal", ctx.data);
+      const payload = ctx.data as unknown as Routine;
+      await redis.set("rotina_semanal", payload);
     } catch (error) {
       console.error("Error saving routine to Upstash:", error);
       throw new Error("Falha ao salvar rotina");

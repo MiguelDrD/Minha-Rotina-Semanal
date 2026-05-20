@@ -31,6 +31,28 @@ export type Routine = {
 
 const STORAGE_KEY = "rotina_semanal_v1";
 
+function getStoredRoutine(): Routine | null {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    return stored ? (JSON.parse(stored) as Routine) : null;
+  } catch (error) {
+    console.error("Erro lendo rotina do localStorage:", error);
+    return null;
+  }
+}
+
+function saveRoutineToStorage(routine: Routine) {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(routine));
+  } catch (error) {
+    console.error("Erro gravando rotina no localStorage:", error);
+  }
+}
+
 export const DAYS = [
   "Segunda-feira",
   "Terça-feira",
@@ -77,13 +99,14 @@ export const defaultRoutine: Routine = {
         { id: id(), time: "23:00", cells: ["🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir"] },
       ],
     },
+  ],
   theme: {
-    headerFrom: "#ff9a9e", // warm pink
-    headerTo: "#fecfef",   // cool pink
-    periodBg: "#f8f0fc",   // light lavender
-    rowAlt: "#fff0f5",     // lavender blush
-    timeCol: "#7c7db5",    // slate blue
-    dayHeader: "#fdbcb4",  // peach
+    headerFrom: "#f39ca8", // soft rose
+    headerTo: "#f6d1e5",   // pale pink
+    periodBg: "#fde8f2",   // blush light
+    rowAlt: "#ffe6f0",     // gentle pink
+    timeCol: "#c98eb8",    // muted mauve
+    dayHeader: "#f4a8c4",  // warm pink
   },
 };
 
@@ -91,26 +114,40 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getRoutineFn, saveRoutineFn } from "./db-actions";
 
 export function loadRoutine(): Routine {
-  // Fallback para o default antes do banco carregar
-  return defaultRoutine;
+  // Use o valor gravado localmente se existir.
+  return getStoredRoutine() ?? defaultRoutine;
 }
 
 export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
   const queryClient = useQueryClient();
+  const localRoutine = getStoredRoutine();
 
-  const { data: routine = defaultRoutine, isLoading } = useQuery({
+  const query = useQuery<Routine, unknown, Routine>({
     queryKey: ["routine"],
-    queryFn: () => getRoutineFn(),
+    queryFn: async () => {
+      if (localRoutine) {
+        return localRoutine;
+      }
+      return getRoutineFn();
+    },
+    initialData: localRoutine ?? defaultRoutine,
+    enabled: typeof window !== "undefined",
   });
+
+  const routine = (query.data ?? localRoutine ?? defaultRoutine) as Routine;
+  const isLoading = query.isLoading;
 
   const mutation = useMutation({
     mutationFn: async (newRoutine: Routine) => {
-      // Otimista: atualiza a tela instantaneamente
+      // Otimista: atualiza a tela instantaneamente e salva localmente.
       queryClient.setQueryData(["routine"], newRoutine);
-      await saveRoutineFn({ data: newRoutine });
+      saveRoutineToStorage(newRoutine);
+      if (!process.env.UPSTASH_REDIS_REST_URL) {
+        return;
+      }
+      await saveRoutineFn({ data: newRoutine } as any);
     },
     onError: (err, newRoutine, context) => {
-      // Reverter se der erro (opcional, pode só mostrar um toast)
       console.error("Falha ao salvar rotina", err);
     },
     onSettled: () => {
