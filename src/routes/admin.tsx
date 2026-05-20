@@ -18,7 +18,7 @@ function Admin() {
       <div className="max-w-6xl mx-auto">
         <header
           className="rounded-2xl p-6 mb-6 flex flex-wrap items-center justify-between gap-4 text-white"
-          style={{ background: "linear-gradient(135deg, var(--header-from), var(--header-to))" }}
+          style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--header-from)'}, ${routine.theme?.headerTo || 'var(--header-to)'})` }}
         >
           <div>
             <h1 className="text-2xl md:text-3xl font-bold">⚙️ Editor da Rotina</h1>
@@ -59,6 +59,76 @@ function Admin() {
                 value={routine.subtitle}
                 onChange={(e) => update((r) => ({ ...r, subtitle: e.target.value }))}
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-card rounded-2xl p-5 mb-6 shadow-sm space-y-3">
+          <h2 className="font-semibold text-foreground">Cores do Tema</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div>
+              <label className="text-xs text-muted-foreground block mb-1">Cor Primária (Início)</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  className="w-8 h-8 rounded cursor-pointer"
+                  value={routine.theme?.headerFrom || "#f43f5e"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerFrom: e.target.value, headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                />
+                <Input
+                  className="flex-1"
+                  value={routine.theme?.headerFrom || "#f43f5e"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerFrom: e.target.value, headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-xs text-muted-foreground block mb-1">Cor Primária (Fim)</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  className="w-8 h-8 rounded cursor-pointer"
+                  value={routine.theme?.headerTo || "#fb7185"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerTo: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                />
+                <Input
+                  className="flex-1"
+                  value={routine.theme?.headerTo || "#fb7185"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerTo: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-xs text-muted-foreground block mb-1">Fundo dos Períodos</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  className="w-8 h-8 rounded cursor-pointer"
+                  value={routine.theme?.periodBg || "#fff1f2"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, periodBg: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                />
+                <Input
+                  className="flex-1"
+                  value={routine.theme?.periodBg || "#fff1f2"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, periodBg: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-xs text-muted-foreground block mb-1">Fundo Linhas Pares</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  className="w-8 h-8 rounded cursor-pointer"
+                  value={routine.theme?.rowAlt || "#fff1f2"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, rowAlt: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2" } }))}
+                />
+                <Input
+                  className="flex-1"
+                  value={routine.theme?.rowAlt || "#fff1f2"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, rowAlt: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2" } }))}
+                />
+              </div>
             </div>
           </div>
         </section>

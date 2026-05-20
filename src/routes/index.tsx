@@ -20,7 +20,7 @@ function Index() {
       <div className="max-w-6xl mx-auto">
         <header
           className="rounded-2xl p-8 mb-6 text-center text-white shadow-lg"
-          style={{ background: "linear-gradient(135deg, var(--header-from), var(--header-to))" }}
+          style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--header-from)'}, ${routine.theme?.headerTo || 'var(--header-to)'})` }}
         >
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
             ⚡ {routine.title} 🔱
@@ -37,7 +37,7 @@ function Index() {
               <tr>
                 <th
                   className="p-4 text-white font-semibold text-left rounded-tl-2xl"
-                  style={{ background: "linear-gradient(135deg, var(--time-from), var(--time-to))" }}
+                  style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--time-from)'}, ${routine.theme?.headerTo || 'var(--time-to)'})` }}
                 >
                   Horário
                 </th>
@@ -45,7 +45,7 @@ function Index() {
                   <th
                     key={d}
                     className={`p-4 text-white font-semibold ${i === routine.days.length - 1 ? "rounded-tr-2xl" : ""}`}
-                    style={{ background: "linear-gradient(135deg, var(--header-from), var(--header-to))" }}
+                    style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--header-from)'}, ${routine.theme?.headerTo || 'var(--header-to)'})` }}
                   >
                     {d}
                   </th>
@@ -59,16 +59,16 @@ function Index() {
                     <td
                       colSpan={8}
                       className="text-center py-3 font-semibold tracking-wide uppercase text-sm"
-                      style={{ background: "var(--period-bg)", color: "var(--foreground)" }}
+                      style={{ background: routine.theme?.periodBg || "var(--period-bg)", color: "var(--foreground)" }}
                     >
                       {period.label}
                     </td>
                   </tr>
                   {period.rows.map((row, ri) => (
-                    <tr key={row.id} style={{ background: ri % 2 === 0 ? "transparent" : "var(--row-alt)" }}>
+                    <tr key={row.id} style={{ background: ri % 2 === 0 ? "transparent" : (routine.theme?.rowAlt || "var(--row-alt)") }}>
                       <td
                         className="p-3 text-white font-semibold text-center"
-                        style={{ background: "linear-gradient(135deg, var(--time-from), var(--time-to))" }}
+                        style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--time-from)'}, ${routine.theme?.headerTo || 'var(--time-to)'})` }}
                       >
                         {row.time}
                       </td>

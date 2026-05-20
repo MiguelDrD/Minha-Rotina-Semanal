@@ -19,6 +19,12 @@ export type Routine = {
   subtitle: string;
   days: string[]; // 7 day names
   periods: Period[];
+  theme?: {
+    headerFrom: string;
+    headerTo: string;
+    periodBg: string;
+    rowAlt: string;
+  };
 };
 
 const STORAGE_KEY = "rotina_semanal_v1";
@@ -70,6 +76,12 @@ export const defaultRoutine: Routine = {
       ],
     },
   ],
+  theme: {
+    headerFrom: "#f43f5e", // rose-500
+    headerTo: "#fb7185",   // rose-400
+    periodBg: "#fff1f2",   // rose-50
+    rowAlt: "#fff1f2",     // rose-50
+  },
 };
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
