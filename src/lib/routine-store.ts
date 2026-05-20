@@ -24,6 +24,8 @@ export type Routine = {
     headerTo: string;
     periodBg: string;
     rowAlt: string;
+    timeCol?: string;
+    dayHeader?: string;
   };
 };
 
@@ -42,8 +44,8 @@ export const DAYS = [
 const id = () => Math.random().toString(36).slice(2, 10);
 
 export const defaultRoutine: Routine = {
-  title: "Minha Rotina Semanal",
-  subtitle: "Disciplina, foco e energia todos os dias ⚡",
+  title: "🌸 Minha Rotina Semanal 🌸",
+  subtitle: "Organização e bem-estar em cada dia ✨",
   days: DAYS,
   periods: [
     {
@@ -75,12 +77,13 @@ export const defaultRoutine: Routine = {
         { id: id(), time: "23:00", cells: ["🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir"] },
       ],
     },
-  ],
   theme: {
-    headerFrom: "#f9a8d4", // pink-300 (mais suave)
-    headerTo: "#fbcfe8",   // pink-200 (mais suave)
-    periodBg: "#fdf2f8",   // pink-50
-    rowAlt: "#fdf2f8",     // pink-50
+    headerFrom: "#ff9a9e", // warm pink
+    headerTo: "#fecfef",   // cool pink
+    periodBg: "#f8f0fc",   // light lavender
+    rowAlt: "#fff0f5",     // lavender blush
+    timeCol: "#7c7db5",    // slate blue
+    dayHeader: "#fdbcb4",  // peach
   },
 };
 
