@@ -125,21 +125,25 @@ export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
   const query = useQuery<Routine, unknown, Routine>({
     queryKey: ["routine"],
     queryFn: async () => {
-      if (localRoutine) {
-        return localRoutine;
+      const stored = getStoredRoutine();
+      if (stored) {
+        return stored;
       }
       return getRoutineFn();
     },
     initialData: localRoutine ?? defaultRoutine,
     enabled: typeof window !== "undefined",
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    staleTime: Infinity,
   });
 
-  const routine = (query.data ?? localRoutine ?? defaultRoutine) as Routine;
+  const routine = query.data as Routine;
   const isLoading = query.isLoading;
 
   const mutation = useMutation({
     mutationFn: async (newRoutine: Routine) => {
-      // Otimista: atualiza a tela instantaneamente e salva localmente.
       queryClient.setQueryData(["routine"], newRoutine);
       saveRoutineToStorage(newRoutine);
       if (!process.env.UPSTASH_REDIS_REST_URL) {
@@ -149,9 +153,6 @@ export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
     },
     onError: (err, newRoutine, context) => {
       console.error("Falha ao salvar rotina", err);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["routine"] });
     },
   });
 
