@@ -23,7 +23,7 @@ function Index() {
           style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--header-from)'}, ${routine.theme?.headerTo || 'var(--header-to)'})` }}
         >
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            ⚡ {routine.title} 🔱
+             {routine.title} 
           </h1>
           <p className="mt-2 text-white/90">
             {routine.subtitle}
