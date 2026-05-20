@@ -1,4 +1,6 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+﻿"use client";
+
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRoutine, newId, defaultRoutine, type Routine } from "@/lib/routine-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
