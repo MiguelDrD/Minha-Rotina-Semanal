@@ -73,7 +73,7 @@ export const defaultRoutine: Routine = {
 };
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getRoutineFn, saveRoutineFn } from "../server/db";
+import { getRoutineFn, saveRoutineFn } from "./db-actions";
 
 export function loadRoutine(): Routine {
   // Fallback para o default antes do banco carregar
@@ -92,7 +92,7 @@ export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
     mutationFn: async (newRoutine: Routine) => {
       // Otimista: atualiza a tela instantaneamente
       queryClient.setQueryData(["routine"], newRoutine);
-      await saveRoutineFn(newRoutine);
+      await saveRoutineFn({ data: newRoutine });
     },
     onError: (err, newRoutine, context) => {
       // Reverter se der erro (opcional, pode só mostrar um toast)
