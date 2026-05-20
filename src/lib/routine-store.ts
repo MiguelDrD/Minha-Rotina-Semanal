@@ -63,7 +63,10 @@ export const DAYS = [
   "Domingo",
 ];
 
-const id = () => Math.random().toString(36).slice(2, 10);
+const randomId = () => Math.random().toString(36).slice(2, 10);
+const stableId = (prefix: string, index: number) => `${prefix}-${index}`;
+
+export const newId = randomId;
 
 export const defaultRoutine: Routine = {
   title: "🌸 Minha Rotina Semanal 🌸",
@@ -71,32 +74,32 @@ export const defaultRoutine: Routine = {
   days: DAYS,
   periods: [
     {
-      id: id(),
+      id: stableId("period", 0),
       label: "🌅 Manhã",
       rows: [
-        { id: id(), time: "06:00", cells: ["⏰ Acordar", "⏰ Acordar", "⏰ Acordar", "⏰ Acordar", "⏰ Acordar", "💤 Livre", "💤 Livre"] },
-        { id: id(), time: "06:30", cells: ["🏋️ Treino", "🏃 Corrida", "🏋️ Treino", "🏃 Corrida", "🏋️ Treino", "⚽ Futebol", "—"] },
-        { id: id(), time: "08:00", cells: ["🥚 Café da manhã", "🥚 Café da manhã", "🥚 Café da manhã", "🥚 Café da manhã", "🥚 Café da manhã", "🥓 Brunch", "🥓 Brunch"] },
-        { id: id(), time: "09:00", cells: ["💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "🛠️ Projetos", "📖 Leitura"] },
-        { id: id(), time: "12:00", cells: ["🍖 Almoço", "🍖 Almoço", "🍖 Almoço", "🍖 Almoço", "🍖 Almoço", "🍔 Almoço", "🍝 Almoço"] },
+        { id: stableId("period-0-row", 0), time: "06:00", cells: ["⏰ Acordar", "⏰ Acordar", "⏰ Acordar", "⏰ Acordar", "⏰ Acordar", "💤 Livre", "💤 Livre"] },
+        { id: stableId("period-0-row", 1), time: "06:30", cells: ["🏋️ Treino", "🏃 Corrida", "🏋️ Treino", "🏃 Corrida", "🏋️ Treino", "⚽ Futebol", "—"] },
+        { id: stableId("period-0-row", 2), time: "08:00", cells: ["🥚 Café da manhã", "🥚 Café da manhã", "🥚 Café da manhã", "🥚 Café da manhã", "🥚 Café da manhã", "🥓 Brunch", "🥓 Brunch"] },
+        { id: stableId("period-0-row", 3), time: "09:00", cells: ["💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "🛠️ Projetos", "📖 Leitura"] },
+        { id: stableId("period-0-row", 4), time: "12:00", cells: ["🍖 Almoço", "🍖 Almoço", "🍖 Almoço", "🍖 Almoço", "🍖 Almoço", "🍔 Almoço", "🍝 Almoço"] },
       ],
     },
     {
-      id: id(),
+      id: stableId("period", 1),
       label: "☀️ Tarde",
       rows: [
-        { id: id(), time: "13:30", cells: ["💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "🎮 Lazer", "🎮 Lazer"] },
-        { id: id(), time: "17:00", cells: ["📚 Estudo", "📚 Estudo", "🎯 Hobby", "📚 Estudo", "🎯 Hobby", "🛒 Mercado", "👨‍👩‍👦 Família"] },
-        { id: id(), time: "18:30", cells: ["🥗 Jantar leve", "🥗 Jantar leve", "🥗 Jantar leve", "🥗 Jantar leve", "🍻 Happy hour", "🍕 Jantar", "🍲 Jantar"] },
+        { id: stableId("period-1-row", 0), time: "13:30", cells: ["💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "💼 Trabalho", "🎮 Lazer", "🎮 Lazer"] },
+        { id: stableId("period-1-row", 1), time: "17:00", cells: ["📚 Estudo", "📚 Estudo", "🎯 Hobby", "📚 Estudo", "🎯 Hobby", "🛒 Mercado", "👨‍👩‍👦 Família"] },
+        { id: stableId("period-1-row", 2), time: "18:30", cells: ["🥗 Jantar leve", "🥗 Jantar leve", "🥗 Jantar leve", "🥗 Jantar leve", "🍻 Happy hour", "🍕 Jantar", "🍲 Jantar"] },
       ],
     },
     {
-      id: id(),
+      id: stableId("period", 2),
       label: "🌆 Noite",
       rows: [
-        { id: id(), time: "20:00", cells: ["🧘 Meditação", "🥋 Jiu-jitsu", "🧘 Meditação", "🥋 Jiu-jitsu", "🎬 Cinema", "🍻 Amigos", "📖 Leitura"] },
-        { id: id(), time: "22:00", cells: ["📖 Leitura", "📖 Leitura", "📖 Leitura", "📖 Leitura", "—", "—", "📖 Leitura"] },
-        { id: id(), time: "23:00", cells: ["🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir"] },
+        { id: stableId("period-2-row", 0), time: "20:00", cells: ["🧘 Meditação", "🥋 Jiu-jitsu", "🧘 Meditação", "🥋 Jiu-jitsu", "🎬 Cinema", "🍻 Amigos", "📖 Leitura"] },
+        { id: stableId("period-2-row", 1), time: "22:00", cells: ["📖 Leitura", "📖 Leitura", "📖 Leitura", "📖 Leitura", "—", "—", "📖 Leitura"] },
+        { id: stableId("period-2-row", 2), time: "23:00", cells: ["🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir", "🌙 Dormir"] },
       ],
     },
   ],
@@ -120,15 +123,21 @@ export function loadRoutine(): Routine {
 
 export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
   const queryClient = useQueryClient();
-  const [localRoutine, setLocalRoutine] = useState<Routine | null>(() => {
-    if (typeof window === "undefined") return null;
-    return getStoredRoutine();
-  });
+  const [localRoutine, setLocalRoutine] = useState<Routine | null>(null);
+
+  useEffect(() => {
+    const stored = getStoredRoutine();
+    if (stored) {
+      setLocalRoutine(stored);
+      queryClient.setQueryData(["routine"], stored);
+    }
+  }, [queryClient]);
 
   const { data: serverRoutine = defaultRoutine, isLoading: serverLoading } = useQuery<Routine, unknown, Routine>({
     queryKey: ["routine"],
     queryFn: async () => getRoutineFn(),
     enabled: typeof window !== "undefined" && localRoutine === null,
+    initialData: defaultRoutine,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
@@ -160,4 +169,3 @@ export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
   return [routine, update, isLoading];
 }
 
-export const newId = id;
