@@ -120,30 +120,27 @@ export function loadRoutine(): Routine {
 
 export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
   const queryClient = useQueryClient();
-  const localRoutine = getStoredRoutine();
+  const [localRoutine, setLocalRoutine] = useState<Routine | null>(() => {
+    if (typeof window === "undefined") return null;
+    return getStoredRoutine();
+  });
 
-  const query = useQuery<Routine, unknown, Routine>({
+  const { data: serverRoutine = defaultRoutine, isLoading: serverLoading } = useQuery<Routine, unknown, Routine>({
     queryKey: ["routine"],
-    queryFn: async () => {
-      const stored = getStoredRoutine();
-      if (stored) {
-        return stored;
-      }
-      return getRoutineFn();
-    },
-    initialData: localRoutine ?? defaultRoutine,
-    enabled: typeof window !== "undefined",
+    queryFn: async () => getRoutineFn(),
+    enabled: typeof window !== "undefined" && localRoutine === null,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     staleTime: Infinity,
   });
 
-  const routine = query.data as Routine;
-  const isLoading = query.isLoading;
+  const routine = localRoutine ?? serverRoutine;
+  const isLoading = serverLoading && localRoutine === null;
 
   const mutation = useMutation({
     mutationFn: async (newRoutine: Routine) => {
+      setLocalRoutine(newRoutine);
       queryClient.setQueryData(["routine"], newRoutine);
       saveRoutineToStorage(newRoutine);
       if (!process.env.UPSTASH_REDIS_REST_URL) {
@@ -151,7 +148,7 @@ export function useRoutine(): [Routine, (r: Routine) => void, boolean] {
       }
       await saveRoutineFn({ data: newRoutine } as any);
     },
-    onError: (err, newRoutine, context) => {
+    onError: (err) => {
       console.error("Falha ao salvar rotina", err);
     },
   });
