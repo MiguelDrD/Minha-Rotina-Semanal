@@ -72,13 +72,13 @@ function Admin() {
                 <input
                   type="color"
                   className="w-8 h-8 rounded cursor-pointer"
-                  value={routine.theme?.headerFrom || "#f43f5e"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerFrom: e.target.value, headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                  value={routine.theme?.headerFrom || "#f9a8d4"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerFrom: e.target.value, headerTo: r.theme?.headerTo || "#fbcfe8", periodBg: r.theme?.periodBg || "#fdf2f8", rowAlt: r.theme?.rowAlt || "#fdf2f8" } }))}
                 />
                 <Input
                   className="flex-1"
-                  value={routine.theme?.headerFrom || "#f43f5e"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerFrom: e.target.value, headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                  value={routine.theme?.headerFrom || "#f9a8d4"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerFrom: e.target.value, headerTo: r.theme?.headerTo || "#fbcfe8", periodBg: r.theme?.periodBg || "#fdf2f8", rowAlt: r.theme?.rowAlt || "#fdf2f8" } }))}
                 />
               </div>
             </div>
@@ -88,13 +88,13 @@ function Admin() {
                 <input
                   type="color"
                   className="w-8 h-8 rounded cursor-pointer"
-                  value={routine.theme?.headerTo || "#fb7185"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerTo: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                  value={routine.theme?.headerTo || "#fbcfe8"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerTo: e.target.value, headerFrom: r.theme?.headerFrom || "#f9a8d4", periodBg: r.theme?.periodBg || "#fdf2f8", rowAlt: r.theme?.rowAlt || "#fdf2f8" } }))}
                 />
                 <Input
                   className="flex-1"
-                  value={routine.theme?.headerTo || "#fb7185"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerTo: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", periodBg: r.theme?.periodBg || "#fff1f2", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                  value={routine.theme?.headerTo || "#fbcfe8"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, headerTo: e.target.value, headerFrom: r.theme?.headerFrom || "#f9a8d4", periodBg: r.theme?.periodBg || "#fdf2f8", rowAlt: r.theme?.rowAlt || "#fdf2f8" } }))}
                 />
               </div>
             </div>
@@ -104,13 +104,13 @@ function Admin() {
                 <input
                   type="color"
                   className="w-8 h-8 rounded cursor-pointer"
-                  value={routine.theme?.periodBg || "#fff1f2"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, periodBg: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                  value={routine.theme?.periodBg || "#fdf2f8"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, periodBg: e.target.value, headerFrom: r.theme?.headerFrom || "#f9a8d4", headerTo: r.theme?.headerTo || "#fbcfe8", rowAlt: r.theme?.rowAlt || "#fdf2f8" } }))}
                 />
                 <Input
                   className="flex-1"
-                  value={routine.theme?.periodBg || "#fff1f2"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, periodBg: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", rowAlt: r.theme?.rowAlt || "#fff1f2" } }))}
+                  value={routine.theme?.periodBg || "#fdf2f8"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, periodBg: e.target.value, headerFrom: r.theme?.headerFrom || "#f9a8d4", headerTo: r.theme?.headerTo || "#fbcfe8", rowAlt: r.theme?.rowAlt || "#fdf2f8" } }))}
                 />
               </div>
             </div>
@@ -120,13 +120,13 @@ function Admin() {
                 <input
                   type="color"
                   className="w-8 h-8 rounded cursor-pointer"
-                  value={routine.theme?.rowAlt || "#fff1f2"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, rowAlt: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2" } }))}
+                  value={routine.theme?.rowAlt || "#fdf2f8"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, rowAlt: e.target.value, headerFrom: r.theme?.headerFrom || "#f9a8d4", headerTo: r.theme?.headerTo || "#fbcfe8", periodBg: r.theme?.periodBg || "#fdf2f8" } }))}
                 />
                 <Input
                   className="flex-1"
-                  value={routine.theme?.rowAlt || "#fff1f2"}
-                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, rowAlt: e.target.value, headerFrom: r.theme?.headerFrom || "#f43f5e", headerTo: r.theme?.headerTo || "#fb7185", periodBg: r.theme?.periodBg || "#fff1f2" } }))}
+                  value={routine.theme?.rowAlt || "#fdf2f8"}
+                  onChange={(e) => update((r) => ({ ...r, theme: { ...r.theme, rowAlt: e.target.value, headerFrom: r.theme?.headerFrom || "#f9a8d4", headerTo: r.theme?.headerTo || "#fbcfe8", periodBg: r.theme?.periodBg || "#fdf2f8" } }))}
                 />
               </div>
             </div>

@@ -77,10 +77,10 @@ export const defaultRoutine: Routine = {
     },
   ],
   theme: {
-    headerFrom: "#f43f5e", // rose-500
-    headerTo: "#fb7185",   // rose-400
-    periodBg: "#fff1f2",   // rose-50
-    rowAlt: "#fff1f2",     // rose-50
+    headerFrom: "#f9a8d4", // pink-300 (mais suave)
+    headerTo: "#fbcfe8",   // pink-200 (mais suave)
+    periodBg: "#fdf2f8",   // pink-50
+    rowAlt: "#fdf2f8",     // pink-50
   },
 };
 
