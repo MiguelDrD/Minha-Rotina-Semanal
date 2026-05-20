@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/admin")({
   component: Admin,
-  head: () => ({ meta: [{ title: "Admin Â· Rotina Semanal" }] }),
+  head: () => ({ meta: [{ title: "Admin · Rotina Semanal" }] }),
 });
 
 function Admin() {
@@ -30,39 +30,39 @@ function Admin() {
           style={{ background: `linear-gradient(135deg, ${routine.theme?.headerFrom || 'var(--header-from)'}, ${routine.theme?.headerTo || 'var(--header-to)'})` }}
         >
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold">âš™ï¸ Editor da Rotina</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Editor da Rotina</h1>
             <p className="text-white/80 text-sm">
-              Altere horÃ¡rios, tarefas e perÃ­odos.
+              Altere horários, tarefas e períodos.
               {isLoading && <span className="ml-2 opacity-60">(Salvando/Carregando na nuvem...)</span>}
             </p>
           </div>
           <div className="flex gap-2">
-            <Link to="/" className="px-4 py-2 rounded-lg bg-white/15 hover:bg-white/25 text-white text-sm font-medium">â† Ver rotina</Link>
+            <Link to="/" className="px-4 py-2 rounded-lg bg-white/15 hover:bg-white/25 text-white text-sm font-medium">← Ver rotina</Link>
             <button
               className="px-4 py-2 rounded-lg bg-white/15 hover:bg-white/25 text-white text-sm font-medium"
               onClick={() => {
-                if (confirm("Restaurar a rotina padrÃ£o? Suas alteraÃ§Ãµes serÃ£o perdidas.")) {
+                if (confirm("Restaurar a rotina padrão? Suas alterações serão perdidas.")) {
                   setRoutine(defaultRoutine);
                 }
               }}
             >
-              â†º Restaurar padrÃ£o
+              ↺ Restaurar padrão
             </button>
           </div>
         </header>
 
         <section className="bg-card rounded-2xl p-5 mb-6 shadow-sm space-y-3">
-          <h2 className="font-semibold text-foreground">CabeÃ§alho</h2>
+          <h2 className="font-semibold text-foreground">Cabeçalho</h2>
           <div className="grid md:grid-cols-2 gap-3">
             <div>
-              <label className="text-xs text-muted-foreground">TÃ­tulo</label>
+              <label className="text-xs text-muted-foreground">Título</label>
               <Input
                 value={routine.title}
                 onChange={(e) => update((r) => ({ ...r, title: e.target.value }))}
               />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground">SubtÃ­tulo</label>
+              <label className="text-xs text-muted-foreground">Subtítulo</label>
               <Input
                 value={routine.subtitle}
                 onChange={(e) => update((r) => ({ ...r, subtitle: e.target.value }))}
@@ -75,7 +75,7 @@ function Admin() {
           <h2 className="font-semibold text-foreground">Cores do Tema</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div>
-              <label className="text-xs text-muted-foreground block mb-1">Cor PrimÃ¡ria (InÃ­cio)</label>
+              <label className="text-xs text-muted-foreground block mb-1">Cor Primária (Início)</label>
               <div className="flex gap-2">
                 <input
                   type="color"
@@ -91,7 +91,7 @@ function Admin() {
               </div>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground block mb-1">Cor PrimÃ¡ria (Fim)</label>
+              <label className="text-xs text-muted-foreground block mb-1">Cor Primária (Fim)</label>
               <div className="flex gap-2">
                 <input
                   type="color"
@@ -107,7 +107,7 @@ function Admin() {
               </div>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground block mb-1">Fundo dos PerÃ­odos</label>
+              <label className="text-xs text-muted-foreground block mb-1">Fundo dos Períodos</label>
               <div className="flex gap-2">
                 <input
                   type="color"
@@ -182,7 +182,7 @@ function Admin() {
                   })
                 }
               >
-                ðŸ—‘ Remover perÃ­odo
+                🗑 Remover período
               </Button>
             </div>
 
@@ -190,7 +190,7 @@ function Admin() {
               <table className="w-full min-w-[900px] text-sm">
                 <thead>
                   <tr className="text-left">
-                    <th className="p-2 w-28">HorÃ¡rio</th>
+                    <th className="p-2 w-28">Horário</th>
                     {routine.days.map((d) => (
                       <th key={d} className="p-2 font-medium text-muted-foreground">{d}</th>
                     ))}
@@ -215,7 +215,7 @@ function Admin() {
                         <td key={ci} className="p-1">
                           <Input
                             value={c}
-                            placeholder="â€”"
+                            placeholder="—"
                             onChange={(e) =>
                               update((r) => {
                                 r.periods[pi].rows[ri].cells[ci] = e.target.value;
@@ -243,7 +243,7 @@ function Admin() {
                               })
                             }
                           >
-                            â†‘
+                            ↑
                           </Button>
                           <Button
                             variant="ghost"
@@ -261,13 +261,13 @@ function Admin() {
                               })
                             }
                           >
-                            â†“
+                            ↓
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
                             className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10"
-                            title="Remover horÃ¡rio"
+                            title="Remover horário"
                             onClick={() =>
                               update((r) => {
                                 r.periods[pi].rows.splice(ri, 1);
@@ -275,7 +275,7 @@ function Admin() {
                               })
                             }
                           >
-                            âœ•
+                            ✕
                           </Button>
                         </div>
                       </td>
@@ -294,13 +294,13 @@ function Admin() {
                   r.periods[pi].rows.push({
                     id: newId(),
                     time: "00:00",
-                    cells: Array(r.days.length).fill("â€”"),
+                    cells: Array(r.days.length).fill("—"),
                   });
                   return r;
                 })
               }
             >
-              âž• Adicionar horÃ¡rio
+              ➕ Adicionar horário
             </Button>
           </section>
         ))}
@@ -311,19 +311,19 @@ function Admin() {
               update((r) => {
                 r.periods.push({
                   id: newId(),
-                  label: "ðŸŒŸ Novo perÃ­odo",
+                  label: "🌟 Novo período",
                   rows: [],
                 });
                 return r;
               })
             }
           >
-            âž• Adicionar perÃ­odo
+            ➕ Adicionar período
           </Button>
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          As alteraÃ§Ãµes sÃ£o salvas automaticamente no navegador.
+          As alterações são salvas automaticamente no navegador.
         </p>
       </div>
     </div>
